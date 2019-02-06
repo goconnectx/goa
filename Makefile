@@ -31,7 +31,7 @@ travis: depend all build-examples clean
 docker-builder:
 	mkdir /opt/bin/
 	go install github.com/hashicorp/go-getter/cmd/go-getter
-	go mod init
+#	go mod init
 	go get ./...
 	go mod tidy
 	GOOS=linux go build -o goa cmd/goa/main.go
