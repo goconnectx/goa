@@ -25,28 +25,19 @@ DEPEND=\
 
 all: lint gen test
 
+docker: docker-builder
 travis: depend all build-examples clean
 
+docker-builder:
+	mkdir /opt/bin/
+	go install github.com/hashicorp/go-getter/cmd/go-getter
+	go mod init
+	go get ./...
+	go mod tidy
+	GOOS=linux go build -o goa cmd/goa/main.go
+#	GOOS=windows go build -o goa.exe cmd/goa/main.go
 # Install protoc
-GOOS=$(shell go env GOOS)
-PROTOC_VERSION="3.6.1"
-ifeq ($(GOOS),linux)
-PROTOC="protoc-$(PROTOC_VERSION)-linux-x86_64"
-PROTOC_EXEC="$(PROTOC)/bin/protoc"
-GOBIN="$(GOPATH)/bin"
-else
-	ifeq ($(GOOS),darwin)
-PROTOC="protoc-$(PROTOC_VERSION)-osx-x86_64"
-PROTOC_EXEC="$(PROTOC)/bin/protoc"
-GOBIN="$(GOPATH)/bin"
-	else
-		ifeq ($(GOOS),windows)
-PROTOC="protoc-$(PROTOC_VERSION)-win32"
-PROTOC_EXEC="$(PROTOC)\bin\protoc.exe"
-GOBIN="$(GOPATH)\bin"
-		endif
-	endif
-endif
+
 depend:
 	@go get -v $(DEPEND)
 	@go install github.com/hashicorp/go-getter/cmd/go-getter && \
