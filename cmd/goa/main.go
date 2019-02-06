@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"goa.design/goa/pkg"
+	"../../pkg"
 
 	"flag"
 )
