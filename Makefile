@@ -32,7 +32,7 @@ docker-builder:
 	mkdir /opt/bin/
 	go install github.com/hashicorp/go-getter/cmd/go-getter
 #	go mod init
-	go get ./...
+#	go get ./...
 	go mod tidy
 	GOOS=linux go build -o goa cmd/goa/main.go
 #	GOOS=windows go build -o goa.exe cmd/goa/main.go
