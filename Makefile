@@ -34,8 +34,8 @@ docker-builder:
 #	go mod init
 #	go get ./...
 	go mod tidy
-	GOOS=linux go build -o goa cmd/goa/main.go
-#	GOOS=windows go build -o goa.exe cmd/goa/main.go
+	export GOOS=linux && go build -o /opt/bin/goa cmd/goa/main.go
+	export GOOS=windows && go build -o /opt/bin/goa.exe cmd/goa/main.go
 # Install protoc
 
 depend:
